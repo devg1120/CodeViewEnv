@@ -1,0 +1,13 @@
+{
+  "frontend": {
+    "dev": 5200,
+    "preview": 5201
+  },
+  "backend": {
+    "api": 7900
+  },
+  "rationale": {
+    "frontend": "5200-5201 avoid common Vite (5173) and other dev servers",
+    "backend": "7900 avoids FastAPI (8000+) and common backend ports"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "codeviewer-backend",
+  "version": "0.1.0",
+  "description": "Bun + Fastify backend for codebase analysis",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch src/server.js",
+    "start": "bun src/server.js",
+    "migrate": "bun src/database/migrate.js",
+    "build": "bun build src/server.js --outdir dist --target bun",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "fastify": "^4.24.3",
+    "@fastify/cors": "^8.4.0",
+    "@fastify/multipart": "^8.0.0",
+    "better-sqlite3": "^9.2.2",
+    "simple-git": "^3.20.0",
+    "glob": "^10.3.10",
+    "mime-types": "^2.1.35"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "bun-types": "latest"
+  }
+}

@@ -1,0 +1,20 @@
+# Bun configuration
+[install]
+# Enable workspaces
+workspaces = true
+# Use exact versions for stability
+exact = false
+# Cache directory
+cache = ".bun"
+
+[dev]
+# Hot reload for development
+hot = true
+
+[run]
+# Allow parallel execution
+parallel = true
+
+[test]
+# Test configuration
+coverage = true

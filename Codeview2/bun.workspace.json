@@ -1,0 +1,15 @@
+{
+  "name": "codeviewer-workspace",
+  "workspaces": [
+    ".",
+    "backend"
+  ],
+  "packageManager": "bun@latest",
+  "scripts": {
+    "postinstall": "bun run setup",
+    "setup": "bun install --cwd backend",
+    "dev:all": "bun run --parallel dev:frontend dev:backend",
+    "build:all": "bun run build && bun run --cwd backend build",
+    "clean": "rm -rf node_modules backend/node_modules dist backend/dist .bun backend/.bun"
+  }
+}
