@@ -26,21 +26,44 @@ const HeaderToolBar = ({
   setFontSize: Dispatch<SetStateAction<{ data: Content[] }>>;
   setTheme: Dispatch<SetStateAction<{ data: Content[] }>>;
 }) => {
+
+
+  const fontSizeChange = (e) => {
+    console.log("fontSizeChange:",Number(e.target.value));
+    //setFontSize(Number(e.target.value));
+  };
+  
+  const themeChange = (e) => {
+    console.log("themeChange:",e.target.value);
+    //setTheme(e.target.value);
+  };
+  /*
+	<input class="ml-4 w-14 text-center" type="number" name="num"   onChange={fontSizeChange}  />
+   */
 return (
-      <div class="flex flwx-row">
+      <div className="flex flwx-row">
         <h1>TOP TOOL</h1>
-	<label class="ml-40">FontSize</label>
-	<input class="ml-4 w-14 text-center" type="number" name="num" value="18"/>
-	<label class="ml-10">Theme</label>
-        <select class="ml-4 w-40" name="pets" id="pet-select" value="spider">
-         <option value="">Theme</option>
-         <option value="dog">犬</option>
+	
+	<label className="ml-40">FontSize</label>
+	<input className="ml-4 w-14 text-center" type="number" name="num"   onChange={fontSizeChange}  />
+	
+	
+	<label className="ml-10">Theme</label>
+        <select className="ml-4 w-40"  value="spider"  onChange={themeChange}>
+         <option value="xcodeDark">xcodeDark</option>
+         <option value="vscodeDark">vscodeDark</option>
+         <option value="dracula">dracula</option>
+         <option value="material">material</option>
+         <option value="sublime">sublime</option>
+	 {/*
          <option value="cat">猫</option>
          <option value="hamster">ハムスター</option>
          <option value="parrot">オウム</option>
          <option value="spider">クモ</option>
          <option value="goldfish">金魚</option>
+	 */}
         </select>
+
       </div>
 
 )}
@@ -239,10 +262,12 @@ export default function Home() {
   return (
   <div className="flex flex-col  w-full ">
     <div className="w-full bg-gray-400 sticky top-0 h-14 z-50 flex items-center ">
+   
       <HeaderToolBar
            setFontSize={null}
            setTheme={null}
       />
+      
     </div>
     <div className="flex bg-black w-full h-full">
       <div className="flex w-[340px]  flex-col h-screen overflow-y-scroll overflow-x-auto">
