@@ -13,7 +13,7 @@ const repoPedro = "_bstools"
 const actual = pedro;
 const actualRepo = repoPedro;
 
-const PersonalAccessToken = process.env.NEXT_PUBLIC_GITHUB_PersonalAccessToken
+const PersonalAccessToken = "";
 
 export const fetchDir = async (octokit: Octokit, sha: string) => {
   const data = await octokit.request(
@@ -29,7 +29,7 @@ export const fetchDir = async (octokit: Octokit, sha: string) => {
       },
     }
   );
-  //console.log("fetchDir", data.data);
+  console.log("fetchDir", data.data);
   return data.data;
 };
 
@@ -47,7 +47,7 @@ export const fetchRepository = async (octokit: Octokit ,path: string = "") => {
     }
   )) as RepositoryRequest;
   
-  //console.log("fetchRepository", data);
+  console.log("fetchRepository", data);
 
   const res: any = {
     data: await Promise.all(
