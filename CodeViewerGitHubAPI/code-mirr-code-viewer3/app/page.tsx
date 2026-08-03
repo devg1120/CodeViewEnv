@@ -18,6 +18,33 @@ import { dracula } from '@uiw/codemirror-theme-dracula';
 import { material } from '@uiw/codemirror-theme-material';
 import { sublime } from '@uiw/codemirror-theme-sublime';
 
+
+const HeaderToolBar = ({
+  setFontSize,
+  setTheme,
+}: {
+  setFontSize: Dispatch<SetStateAction<{ data: Content[] }>>;
+  setTheme: Dispatch<SetStateAction<{ data: Content[] }>>;
+}) => {
+return (
+      <div class="flex flwx-row">
+        <h1>TOP TOOL</h1>
+	<label class="ml-40">FontSize</label>
+	<input class="ml-4 w-14 text-center" type="number" name="num" value="18"/>
+	<label class="ml-10">Theme</label>
+        <select class="ml-4 w-40" name="pets" id="pet-select" value="spider">
+         <option value="">Theme</option>
+         <option value="dog">犬</option>
+         <option value="cat">猫</option>
+         <option value="hamster">ハムスター</option>
+         <option value="parrot">オウム</option>
+         <option value="spider">クモ</option>
+         <option value="goldfish">金魚</option>
+        </select>
+      </div>
+
+)}
+
 const TreeNode = ({
   item,
   setContent,
@@ -104,6 +131,8 @@ const TreeNode = ({
 export default function Home() {
   const [content, setContent] = useState<Content>({} as Content);
   const [sourceCode, setSourceCode] = useState("");
+  const [theme, setTheme] = useState(dracula);
+  const [fontSize, setFontSize] = useState(18);
   const [selectedContent, setSelectedContent] = useState<{
     data: any;
     extension: string;
@@ -147,12 +176,13 @@ export default function Home() {
     fetchRepo();
   }, []);
 
-function decode(str) {
+ function decode(str) {
   const utf8Array = Uint8Array.from(
     Array.from(atob(str)).map((s) => s.charCodeAt(0)),
   );
   return new TextDecoder().decode(utf8Array);
-}
+ }
+
   useEffect(() => {
     const fetch = async () => {
       if (!content.path) return;
@@ -199,8 +229,21 @@ function decode(str) {
     fontSize: "18px"
   }
 });
-
+/*
+      <HeaderToolBar
+            className="w-full"
+           setFontSize={null}
+           setTheme={null}
+      />
+*/
   return (
+  <div className="flex flex-col  w-full ">
+    <div className="w-full bg-gray-400 sticky top-0 h-14 z-50 flex items-center ">
+      <HeaderToolBar
+           setFontSize={null}
+           setTheme={null}
+      />
+    </div>
     <div className="flex bg-black w-full h-full">
       <div className="flex w-[340px]  flex-col h-screen overflow-y-scroll overflow-x-auto">
         {repo.data.map((item) => {
@@ -240,5 +283,6 @@ function decode(str) {
 
     </div>
     </div>
+  </div>
   );
 }
