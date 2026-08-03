@@ -20,22 +20,26 @@ import { sublime } from '@uiw/codemirror-theme-sublime';
 
 
 const HeaderToolBar = ({
-  setFontSize,
-  setTheme,
+  setViewFontSize,
+  setViewTheme,
 }: {
-  setFontSize: Dispatch<SetStateAction<{ data: Content[] }>>;
-  setTheme: Dispatch<SetStateAction<{ data: Content[] }>>;
+  //setFontSize: Dispatch<SetStateAction<{ data: Content[] }>>;
+  //setTheme: Dispatch<SetStateAction<{ data: Content[] }>>;
 }) => {
 
+  const [fontSize, setFontSize] = useState(18);
+  const [theme, setTheme] = useState("dracula");
 
   const fontSizeChange = (e) => {
     console.log("fontSizeChange:",Number(e.target.value));
-    //setFontSize(Number(e.target.value));
+    setFontSize(Number(e.target.value));
+    setViewFontSize(Number(e.target.value));
   };
   
   const themeChange = (e) => {
     console.log("themeChange:",e.target.value);
-    //setTheme(e.target.value);
+    setTheme(e.target.value);
+    setViewTheme(e.target.value);
   };
   /*
 	<input class="ml-4 w-14 text-center" type="number" name="num"   onChange={fontSizeChange}  />
@@ -45,11 +49,11 @@ return (
         <h1>TOP TOOL</h1>
 	
 	<label className="ml-40">FontSize</label>
-	<input className="ml-4 w-14 text-center" type="number" name="num"   onChange={fontSizeChange}  />
+	<input className="ml-4 w-14 text-center" type="number" name="num" value={fontSize}   onChange={fontSizeChange}  />
 	
 	
 	<label className="ml-10">Theme</label>
-        <select className="ml-4 w-40"  value="spider"  onChange={themeChange}>
+        <select className="ml-4 w-40 pl-1 text-left"  value={theme}  onChange={themeChange}>
          <option value="xcodeDark">xcodeDark</option>
          <option value="vscodeDark">vscodeDark</option>
          <option value="dracula">dracula</option>
@@ -154,8 +158,12 @@ const TreeNode = ({
 export default function Home() {
   const [content, setContent] = useState<Content>({} as Content);
   const [sourceCode, setSourceCode] = useState("");
-  const [theme, setTheme] = useState(dracula);
-  const [fontSize, setFontSize] = useState(18);
+
+  const [viewFontSize, setViewFontSize] = useState(20);
+  //const [viewTheme, setViewThema] = useState(dracula);
+  //const [viewTheme, setViewThema] = useState(sublime);
+  const [viewTheme, setViewThema] = useState(vscodeDark);
+
   const [selectedContent, setSelectedContent] = useState<{
     data: any;
     extension: string;
@@ -249,7 +257,8 @@ export default function Home() {
 
   const customTheme = EditorView.theme({
   "&": {
-    fontSize: "18px"
+    //fontSize: "18px"
+    fontSize: viewFontSize + "px"
   }
 });
 /*
@@ -264,8 +273,8 @@ export default function Home() {
     <div className="w-full bg-gray-400 sticky top-0 h-14 z-50 flex items-center ">
    
       <HeaderToolBar
-           setFontSize={null}
-           setTheme={null}
+           setViewFontSize={null}
+           setViewTheme={null}
       />
       
     </div>
@@ -290,7 +299,8 @@ export default function Home() {
         //onChange={onChange}
 	//theme={xcodeDark}
 	//theme={vscodeDark}
-	theme={dracula}
+	//theme={dracula}
+	theme={viewTheme}
 	fontSize={20}
 	//theme={material}
 	//theme={sublime}
