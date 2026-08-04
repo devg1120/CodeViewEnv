@@ -12,13 +12,12 @@ import { javascript } from "@codemirror/lang-javascript";
 import ReactCodeMirror from "@uiw/react-codemirror";
 import { EditorView } from '@codemirror/view';
 
-import { xcodeDark } from "@uiw/codemirror-theme-xcode";
-import { vscodeDark } from "@uiw/codemirror-theme-vscode";
-import { dracula } from '@uiw/codemirror-theme-dracula';
-import { material } from '@uiw/codemirror-theme-material';
-import { sublime } from '@uiw/codemirror-theme-sublime';
+//import { xcodeDark } from "@uiw/codemirror-theme-xcode";
+//import { vscodeDark } from "@uiw/codemirror-theme-vscode";
+//import { dracula } from '@uiw/codemirror-theme-dracula';
+//import { material } from '@uiw/codemirror-theme-material';
+//import { sublime } from '@uiw/codemirror-theme-sublime';
 
-/*
 import {
   xcodeDark,
   vscodeDark,
@@ -26,16 +25,6 @@ import {
   material,
   sublime,
 }  from '@uiw/codemirror-themes-all';
-*/
-
-const theme_dict = {
- xcodeDark  :xcodeDark,
- vscodeDark :vscodeDark,
- dracula    :dracula,
- material   :material,
- sublime    :sublime,
-};
-
 
 /*
 import {
@@ -111,18 +100,11 @@ return (
 	
 	<label className="ml-10">Theme</label>
         <select className="ml-4 w-40 pl-1 text-left"  value={theme}  onChange={themeChange}>
-	{/*
          <option value="xcodeDark">xcodeDark</option>
          <option value="vscodeDark">vscodeDark</option>
          <option value="dracula">dracula</option>
          <option value="material">material</option>
          <option value="sublime">sublime</option>
-	*/}
-	
-          {Object.entries(theme_dict).map(([key, value]) => (
-              <option value={key} key={key} >{key}</option>
-          ))}
-	
         </select>
 
       </div>
@@ -221,7 +203,6 @@ export default function Home() {
   const [viewThemeName, setViewThemaName] = useState("dracula");
 
   const viewTheme = useMemo(() => {
-/*
         if (viewThemeName == "xcodeDark") { return xcodeDark; 
         } else if (viewThemeName == "vscodeDark") { return vscodeDark; 
         } else if (viewThemeName == "dracula"   ) { return dracula; 
@@ -230,14 +211,6 @@ export default function Home() {
 	} else {
 		return dracula;
 	}
-*/
-        for (let [key, value] of Object.entries(theme_dict)) {
-             if (viewThemeName == key) {
-                  return value
-             }
-        }
-	return dracula;
-
    }, [viewThemeName]);
 
 
