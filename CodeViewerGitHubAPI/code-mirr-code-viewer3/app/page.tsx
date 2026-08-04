@@ -17,6 +17,12 @@ import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import { material } from '@uiw/codemirror-theme-material';
 import { sublime } from '@uiw/codemirror-theme-sublime';
+import { atomone } from '@uiw/codemirror-theme-atomone';
+import { copilot } from '@uiw/codemirror-theme-copilot';
+import { abcdef } from '@uiw/codemirror-theme-abcdef';
+import { githubLight, githubDark } from '@uiw/codemirror-theme-github';
+import { tokyoNight } from '@uiw/codemirror-theme-tokyo-night';
+
 
 /*
 import {
@@ -29,11 +35,17 @@ import {
 */
 
 const theme_dict = {
- xcodeDark  :xcodeDark,
- vscodeDark :vscodeDark,
- dracula    :dracula,
- material   :material,
- sublime    :sublime,
+ xcodeDark   :xcodeDark,
+ vscodeDark  :vscodeDark,
+ dracula     :dracula,
+ material    :material,
+ sublime     :sublime,
+ atomone     :atomone,
+ copilot     :copilot,
+ abcdef      :abcdef,
+ githubLight :githubLight,
+ githubDark  :githubDark,
+ tokyoNight  :tokyoNight,
 };
 
 
@@ -79,13 +91,19 @@ code,
 const HeaderToolBar = ({
   setViewFontSize,
   setViewThemeName,
+  viewFontSize,
+  viewThemeName,
 }: {
   //setFontSize: Dispatch<SetStateAction<{ data: Content[] }>>;
   //setTheme: Dispatch<SetStateAction<{ data: Content[] }>>;
 }) => {
 
-  const [fontSize, setFontSize] = useState(18);
-  const [theme, setTheme] = useState("dracula");
+  //const [fontSize, setFontSize] = useState(18);
+  const [fontSize, setFontSize] = useState(viewFontSize);
+  //const [theme, setTheme] = useState("dracula");
+  //const [theme, setTheme] = useState("atomone");
+  //const [theme, setTheme] = useState("tokyoNight");
+  const [theme, setTheme] = useState(viewThemeName);
 
   const fontSizeChange = (e) => {
     console.log("fontSizeChange:",Number(e.target.value));
@@ -216,9 +234,10 @@ export default function Home() {
   const [content, setContent] = useState<Content>({} as Content);
   const [sourceCode, setSourceCode] = useState("");
 
-  const [viewFontSize, setViewFontSize] = useState(18);
+  const [viewFontSize, setViewFontSize] = useState(20);
   //const [viewTheme, setViewThema] = useState(dracula);
-  const [viewThemeName, setViewThemaName] = useState("dracula");
+  const [viewThemeName, setViewThemeName] = useState("githubDark");
+  //const [viewThemeName, setViewThemeName] = useState("tokyoNight");
 
   const viewTheme = useMemo(() => {
 /*
@@ -354,7 +373,9 @@ export default function Home() {
    
       <HeaderToolBar
            setViewFontSize={setViewFontSize}
-           setViewThemeName={setViewThemaName}
+           setViewThemeName={setViewThemeName}
+           viewFontSize={viewFontSize}
+           viewThemeName={viewThemeName}
       />
       
     </div>
