@@ -49,8 +49,8 @@ const theme_dict = {
 };
 
 const repo_dict = {
- solidjs_lesson   :"solidjs-lesson",
- _bstools         :"_bstools",
+ "solidjs-lesson"   :"solidjs-lesson",
+ "_bstools"         :"_bstools",
 };
 
 /*
@@ -128,9 +128,9 @@ const HeaderToolBar = ({
   };
 
   const repoChange = (e) => {
-    console.log("repoChange:",e.target.value);
+    console.log("repoChange:",e.target.value, repo_dict[e.target.value]);
     setRepo(e.target.value);
-    setViewRepoName(e.target.value);
+    setViewRepoName(repo_dict[e.target.value]);
   };
   /*
 	<input class="ml-4 w-14 text-center" type="number" name="num"   onChange={fontSizeChange}  />
@@ -264,7 +264,8 @@ const TreeNode = ({
 
 export default function Home() {
   const [content, setContent] = useState<Content>({} as Content);
-  const [viewRepoName, setViewRepoName] = useState("solidjs-lesson");
+  //const [viewRepoName, setViewRepoName] = useState("solidjs-lesson");
+  const [viewRepoName, setViewRepoName] = useState("_bstools");
   const [sourceCode, setSourceCode] = useState("");
 
   const [viewFontSize, setViewFontSize] = useState(20);
@@ -326,6 +327,7 @@ export default function Home() {
     const fetchRepo = async () => {
       //const { data } = await fetchRepository(octokit , "solidjs-lesson");
       const { data } = await fetchRepository(octokit , viewRepoName);
+      console.log("fetchRepo: ", viewRepoName)
 
       const finalData = data.map((item: any) => {
         return {
@@ -338,7 +340,7 @@ export default function Home() {
       setRepo({ data: finalData });
     };
     fetchRepo();
-  }, []);
+  }, [viewRepoName]);
 
  function decode(str) {
   const utf8Array = Uint8Array.from(
