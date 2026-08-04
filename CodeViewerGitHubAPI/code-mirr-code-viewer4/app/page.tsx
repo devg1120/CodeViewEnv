@@ -48,6 +48,10 @@ const theme_dict = {
  tokyoNight  :tokyoNight,
 };
 
+const repo_dict = {
+ solidjs_lesson   :"solidjs-lesson",
+ _bstools         :"_bstools",
+};
 
 /*
 import {
@@ -96,6 +100,8 @@ const HeaderToolBar = ({
   setViewThemeName,
   viewFontSize,
   viewThemeName,
+  setViewRepoName,
+  viewRepoName,
 }: {
   //setFontSize: Dispatch<SetStateAction<{ data: Content[] }>>;
   //setTheme: Dispatch<SetStateAction<{ data: Content[] }>>;
@@ -107,6 +113,7 @@ const HeaderToolBar = ({
   //const [theme, setTheme] = useState("atomone");
   //const [theme, setTheme] = useState("tokyoNight");
   const [theme, setTheme] = useState(viewThemeName);
+  const [repo, setRepo] = useState(viewRepoName);
 
   const fontSizeChange = (e) => {
     console.log("fontSizeChange:",Number(e.target.value));
@@ -119,12 +126,34 @@ const HeaderToolBar = ({
     setTheme(e.target.value);
     setViewThemeName(e.target.value);
   };
+
+  const repoChange = (e) => {
+    console.log("repoChange:",e.target.value);
+    setRepo(e.target.value);
+    setViewRepoName(e.target.value);
+  };
   /*
 	<input class="ml-4 w-14 text-center" type="number" name="num"   onChange={fontSizeChange}  />
    */
 return (
       <div className="flex flwx-row">
         <h1>TOP TOOL</h1>
+
+	<label className="ml-10">Repo</label>
+        <select className="ml-4 w-40 pl-1 text-left"  value={repo}  onChange={repoChange}>
+	{/*
+         <option value="xcodeDark">xcodeDark</option>
+         <option value="vscodeDark">vscodeDark</option>
+         <option value="dracula">dracula</option>
+         <option value="material">material</option>
+         <option value="sublime">sublime</option>
+	*/}
+	
+          {Object.entries(repo_dict).map(([key, value]) => (
+              <option value={key} key={key} >{key}</option>
+          ))}
+	
+        </select>
 	
 	<label className="ml-40">FontSize</label>
 	<input className="ml-4 w-14 text-center" type="number" name="num" value={fontSize}   onChange={fontSizeChange}  />
@@ -235,7 +264,7 @@ const TreeNode = ({
 
 export default function Home() {
   const [content, setContent] = useState<Content>({} as Content);
-  const [repoName, setRepoName] = useState("solidjs-lesson");
+  const [viewRepoName, setViewRepoName] = useState("solidjs-lesson");
   const [sourceCode, setSourceCode] = useState("");
 
   const [viewFontSize, setViewFontSize] = useState(20);
@@ -296,7 +325,7 @@ export default function Home() {
   useEffect(() => {
     const fetchRepo = async () => {
       //const { data } = await fetchRepository(octokit , "solidjs-lesson");
-      const { data } = await fetchRepository(octokit , repoName);
+      const { data } = await fetchRepository(octokit , viewRepoName);
 
       const finalData = data.map((item: any) => {
         return {
@@ -323,7 +352,7 @@ export default function Home() {
       if (!content.path) return;
 
       //const data = await fetchContent(octokit, "solidjs-lesson", content.path);
-      const data = await fetchContent(octokit, repoName , content.path);
+      const data = await fetchContent(octokit, viewRepoName , content.path);
 
       //console.log("============",atob(data.content));
       //setSourceCode(atob(data.content));
@@ -382,6 +411,8 @@ export default function Home() {
            setViewThemeName={setViewThemeName}
            viewFontSize={viewFontSize}
            viewThemeName={viewThemeName}
+           setViewRepoName={setViewRepoName}
+           viewRepoName={viewRepoName}
       />
       
     </div>
