@@ -12,19 +12,12 @@ import { javascript } from "@codemirror/lang-javascript";
 import ReactCodeMirror from "@uiw/react-codemirror";
 import { EditorView } from '@codemirror/view';
 
-import { xcodeDark } from "@uiw/codemirror-theme-xcode";
-import { vscodeDark } from "@uiw/codemirror-theme-vscode";
-import { dracula } from '@uiw/codemirror-theme-dracula';
-import { material } from '@uiw/codemirror-theme-material';
-import { sublime } from '@uiw/codemirror-theme-sublime';
-import { atomone } from '@uiw/codemirror-theme-atomone';
-import { copilot } from '@uiw/codemirror-theme-copilot';
-import { abcdef } from '@uiw/codemirror-theme-abcdef';
-import { githubLight, githubDark } from '@uiw/codemirror-theme-github';
-import { tokyoNight } from '@uiw/codemirror-theme-tokyo-night';
+//import { xcodeDark } from "@uiw/codemirror-theme-xcode";
+//import { vscodeDark } from "@uiw/codemirror-theme-vscode";
+//import { dracula } from '@uiw/codemirror-theme-dracula';
+//import { material } from '@uiw/codemirror-theme-material';
+//import { sublime } from '@uiw/codemirror-theme-sublime';
 
-
-/*
 import {
   xcodeDark,
   vscodeDark,
@@ -32,26 +25,6 @@ import {
   material,
   sublime,
 }  from '@uiw/codemirror-themes-all';
-*/
-
-const theme_dict = {
- xcodeDark   :xcodeDark,
- vscodeDark  :vscodeDark,
- dracula     :dracula,
- material    :material,
- sublime     :sublime,
- atomone     :atomone,
- copilot     :copilot,
- abcdef      :abcdef,
- githubLight :githubLight,
- githubDark  :githubDark,
- tokyoNight  :tokyoNight,
-};
-
-const repo_dict = {
- "solidjs-lesson"   :"solidjs-lesson",
- "_bstools"         :"_bstools",
-};
 
 /*
 import {
@@ -92,28 +65,16 @@ code,
 }  from '@uiw/codemirror-themes-all';
 */
 
-
-//const repo = "solidjs-lesson"
-
 const HeaderToolBar = ({
   setViewFontSize,
   setViewThemeName,
-  viewFontSize,
-  viewThemeName,
-  setViewRepoName,
-  viewRepoName,
 }: {
   //setFontSize: Dispatch<SetStateAction<{ data: Content[] }>>;
   //setTheme: Dispatch<SetStateAction<{ data: Content[] }>>;
 }) => {
 
-  //const [fontSize, setFontSize] = useState(18);
-  const [fontSize, setFontSize] = useState(viewFontSize);
-  //const [theme, setTheme] = useState("dracula");
-  //const [theme, setTheme] = useState("atomone");
-  //const [theme, setTheme] = useState("tokyoNight");
-  const [theme, setTheme] = useState(viewThemeName);
-  const [repo, setRepo] = useState(viewRepoName);
+  const [fontSize, setFontSize] = useState(18);
+  const [theme, setTheme] = useState("dracula");
 
   const fontSizeChange = (e) => {
     console.log("fontSizeChange:",Number(e.target.value));
@@ -126,41 +87,12 @@ const HeaderToolBar = ({
     setTheme(e.target.value);
     setViewThemeName(e.target.value);
   };
-
-  const repoChange = (e) => {
-    console.log("repoChange:",e.target.value, repo_dict[e.target.value]);
-    setRepo(e.target.value);
-    setViewRepoName(repo_dict[e.target.value]);
-  };
-
-   const [isPopUpVisible, setPopUpVisible] = useState(false);
-
-  const togglePopUp = () => {
-    setPopUpVisible(!isPopUpVisible);
-  };
-
   /*
 	<input class="ml-4 w-14 text-center" type="number" name="num"   onChange={fontSizeChange}  />
    */
 return (
       <div className="flex flwx-row">
         <h1>TOP TOOL</h1>
-
-	<label className="ml-10">Repo</label>
-        <select className="ml-4 w-40 pl-1 text-left"  value={repo}  onChange={repoChange}>
-	{/*
-         <option value="xcodeDark">xcodeDark</option>
-         <option value="vscodeDark">vscodeDark</option>
-         <option value="dracula">dracula</option>
-         <option value="material">material</option>
-         <option value="sublime">sublime</option>
-	*/}
-	
-          {Object.entries(repo_dict).map(([key, value]) => (
-              <option value={key} key={key} >{key}</option>
-          ))}
-	
-        </select>
 	
 	<label className="ml-40">FontSize</label>
 	<input className="ml-4 w-14 text-center" type="number" name="num" value={fontSize}   onChange={fontSizeChange}  />
@@ -168,22 +100,12 @@ return (
 	
 	<label className="ml-10">Theme</label>
         <select className="ml-4 w-40 pl-1 text-left"  value={theme}  onChange={themeChange}>
-	{/*
          <option value="xcodeDark">xcodeDark</option>
          <option value="vscodeDark">vscodeDark</option>
          <option value="dracula">dracula</option>
          <option value="material">material</option>
          <option value="sublime">sublime</option>
-	*/}
-	
-          {Object.entries(theme_dict).map(([key, value]) => (
-              <option value={key} key={key} >{key}</option>
-          ))}
-	
         </select>
-
-	<button className="ml-10" onClick={togglePopUp}>Setting</button>
-
 
       </div>
 
@@ -274,17 +196,13 @@ const TreeNode = ({
 
 export default function Home() {
   const [content, setContent] = useState<Content>({} as Content);
-  //const [viewRepoName, setViewRepoName] = useState("solidjs-lesson");
-  const [viewRepoName, setViewRepoName] = useState("_bstools");
   const [sourceCode, setSourceCode] = useState("");
 
-  const [viewFontSize, setViewFontSize] = useState(20);
+  const [viewFontSize, setViewFontSize] = useState(18);
   //const [viewTheme, setViewThema] = useState(dracula);
-  const [viewThemeName, setViewThemeName] = useState("githubDark");
-  //const [viewThemeName, setViewThemeName] = useState("tokyoNight");
+  const [viewThemeName, setViewThemaName] = useState("dracula");
 
   const viewTheme = useMemo(() => {
-/*
         if (viewThemeName == "xcodeDark") { return xcodeDark; 
         } else if (viewThemeName == "vscodeDark") { return vscodeDark; 
         } else if (viewThemeName == "dracula"   ) { return dracula; 
@@ -293,14 +211,6 @@ export default function Home() {
 	} else {
 		return dracula;
 	}
-*/
-        for (let [key, value] of Object.entries(theme_dict)) {
-             if (viewThemeName == key) {
-                  return value
-             }
-        }
-	return dracula;
-
    }, [viewThemeName]);
 
 
@@ -335,9 +245,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchRepo = async () => {
-      //const { data } = await fetchRepository(octokit , "solidjs-lesson");
-      const { data } = await fetchRepository(octokit , viewRepoName);
-      console.log("fetchRepo: ", viewRepoName)
+      const { data } = await fetchRepository(octokit);
 
       const finalData = data.map((item: any) => {
         return {
@@ -350,7 +258,7 @@ export default function Home() {
       setRepo({ data: finalData });
     };
     fetchRepo();
-  }, [viewRepoName]);
+  }, []);
 
  function decode(str) {
   const utf8Array = Uint8Array.from(
@@ -363,8 +271,7 @@ export default function Home() {
     const fetch = async () => {
       if (!content.path) return;
 
-      //const data = await fetchContent(octokit, "solidjs-lesson", content.path);
-      const data = await fetchContent(octokit, viewRepoName , content.path);
+      const data = await fetchContent(octokit, content.path);
 
       //console.log("============",atob(data.content));
       //setSourceCode(atob(data.content));
@@ -420,11 +327,7 @@ export default function Home() {
    
       <HeaderToolBar
            setViewFontSize={setViewFontSize}
-           setViewThemeName={setViewThemeName}
-           viewFontSize={viewFontSize}
-           viewThemeName={viewThemeName}
-           setViewRepoName={setViewRepoName}
-           viewRepoName={viewRepoName}
+           setViewThemeName={setViewThemaName}
       />
       
     </div>

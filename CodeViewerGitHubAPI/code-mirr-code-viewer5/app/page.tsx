@@ -23,6 +23,7 @@ import { abcdef } from '@uiw/codemirror-theme-abcdef';
 import { githubLight, githubDark } from '@uiw/codemirror-theme-github';
 import { tokyoNight } from '@uiw/codemirror-theme-tokyo-night';
 
+import PopUp from './PopUp.tsx';
 
 /*
 import {
@@ -182,10 +183,11 @@ return (
 	
         </select>
 
-	<button className="ml-10" onClick={togglePopUp}>Setting</button>
-
-
+        <div className="ml-10" >
+           <PopUp />
+	</div>
       </div>
+
 
 )}
 

@@ -1,0 +1,84 @@
+// components/PopUp.js
+import React, { useState } from "react";
+import styles from "./PopUp.module.css";
+
+
+function EditableTable() {
+  const [data, setData] = useState([
+    { id: 1, name: "Taro", email: "taro@example.com" },
+    { id: 2, name: "Hanako", email: "hanako@example.com" },
+  ]);
+  const [editId, setEditId] = useState(null);
+  const [editForm, setEditForm] = useState({ name: "", email: "" });
+
+  const handleEdit = (row) => {
+    setEditId(row.id);
+    setEditForm({ name: row.name, email: row.email });
+  };
+
+  const handleSave = (id) => {
+    setData(data.map((row) => (row.id === id ? { ...row, ...editForm } : row)));
+    setEditId(null);
+  };
+
+  return (
+    <table contentEditable={true}>
+      <tbody>
+        {data.map((row) => (
+          <tr key={row.id}>
+            {editId === row.id ? (
+              <>
+                <td>
+                  <input
+                    value={editForm.name}
+                    onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                  />
+                </td>
+                <td>
+                  <input
+                    value={editForm.email}
+                    onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                  />
+                </td>
+                <td><button onClick={() => handleSave(row.id)}>Save</button></td>
+              </>
+            ) : (
+              <>
+                <td>{row.name}</td>
+                <td>{row.email}</td>
+                <td><button onClick={() => handleEdit(row.id)}>Edit</button></td>
+              </>
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+
+const PopUp = () => {
+  const [isPopUpVisible, setPopUpVisible] = useState(false);
+
+  const togglePopUp = () => {
+    setPopUpVisible(!isPopUpVisible);
+  };
+
+  return (
+    <div>
+      <button onClick={togglePopUp}>Setting</button>
+
+      {isPopUpVisible && (
+        <div className={styles.PopUp}>
+          {/* ポップアップの中身 */}
+          <p>ここにポップアップの内容を記述します。</p>
+	  <EditableTable/>
+          <button onClick={togglePopUp}>Close</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default PopUp;
+
